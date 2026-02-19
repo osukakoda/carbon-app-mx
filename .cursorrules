@@ -1,0 +1,261 @@
+# IBM Carbon Color Conventions
+
+## Strict Rule: Use Semantic Color Tokens
+
+**Never use hex codes, rgb(), or named colors for UI colors.** Use IBM Carbon Design System semantic tokens exclusively. Semantic names enable theming, accessibility, and consistent design across light/dark modes.
+
+---
+
+## Allowed Token Categories
+
+### Text
+`text-primary` `text-secondary` `text-placeholder` `text-on-color` `text-on-color-disabled` `text-helper` `text-error` `text-inverse` `text-disabled`
+
+### Support (status/feedback)
+`support-error` `support-success` `support-warning` `support-info` `support-error-inverse` `support-success-inverse` `support-warning-inverse` `support-info-inverse` `support-caution-minor` `support-caution-major` `support-caution-undefined`
+
+### Link
+`link-primary` `link-primary-hover` `link-secondary` `link-inverse` `link-inverse-hover` `link-inverse-active` `link-inverse-visited` `link-visited`
+
+### Icon
+`icon-primary` `icon-secondary` `icon-on-color` `icon-on-color-disabled` `icon-interactive` `icon-inverse` `icon-disabled`
+
+### Background & Layer
+`background` `background-hover` `background-active` `background-selected` `background-selected-hover` `background-inverse` `background-inverse-hover` `background-brand`
+`layer-01` `layer-02` `layer-03` `layer-background-01` `layer-background-02` `layer-background-03` `layer-hover-01` `layer-hover-02` `layer-hover-03` `layer-active-01` `layer-active-02` `layer-active-03` `layer-selected-01` `layer-selected-02` `layer-selected-03` `layer-selected-hover-01` `layer-selected-hover-02` `layer-selected-hover-03` `layer-selected-inverse` `layer-selected-disabled` `layer-accent-01` `layer-accent-02` `layer-accent-03` `layer-accent-hover-01` `layer-accent-hover-02` `layer-accent-hover-03` `layer-accent-active-01` `layer-accent-active-02` `layer-accent-active-03`
+
+### Field
+`field-01` `field-02` `field-03` `field-hover-01` `field-hover-02` `field-hover-03`
+
+### Border
+`border-interactive` `border-subtle-00` `border-subtle-01` `border-subtle-02` `border-subtle-03` `border-subtle-selected-01` `border-subtle-selected-02` `border-subtle-selected-03` `border-strong-01` `border-strong-02` `border-strong-03` `border-tile-01` `border-tile-02` `border-tile-03` `border-inverse` `border-disabled`
+
+### Focus
+`focus` `focus-inset` `focus-inverse`
+
+---
+
+## Typography: Use Carbon Type Tokens Only
+
+**Never use raw px or rem for font-size, font-weight, or line-height.** Every text element must use an IBM Carbon typography token. If a design value is off-pixel, round to the nearest defined token.
+
+### Extracted tokens (Figma → Carbon)
+
+Mapped from your Figma selection to Carbon token names. Use these tokens (e.g. `$body-01`, `$heading-02`) or their CSS equivalents (`var(--cds-body-01)` etc.).
+
+#### Body
+| Carbon token | Font size | Weight | Line height | Use instead of |
+|--------------|-----------|--------|-------------|----------------|
+| `$body-compact-01` | 14px | 400 | 18px | 14px / 0.875rem body, 18px line |
+| `$body-compact-02` | 16px | 400 | 22px | 16px / 1rem body, 22px line |
+| `$body-01` | 14px | 400 | 20px | 14px body, 20px line |
+| `$body-02` | 16px | 400 | 24px | 16px body, 24px line |
+
+#### Headings (fixed)
+| Carbon token | Font size | Weight | Line height | Use instead of |
+|--------------|-----------|--------|-------------|----------------|
+| `$heading-compact-01` | 14px | 600 | 18px | 14px SemiBold heading |
+| `$heading-compact-02` | 16px | 600 | 22px | 16px SemiBold heading |
+| `$heading-01` | 14px | 600 | 20px | 14px SemiBold, 20px line |
+| `$heading-02` | 16px | 600 | 24px | 16px SemiBold, 24px line |
+| `$heading-03` | 20px | 400 | 28px | 20px / 1.25rem heading |
+| `$heading-04` | 28px | 400 | 36px | 28px heading |
+| `$heading-05` | 32px | 400 | 40px | 32px heading |
+| `$heading-06` | 42px | 300 (Light) | 50px | 42px display heading |
+| `$heading-07` | 54px | 300 (Light) | 64px | 54px display heading |
+
+#### Utility (labels, code, helper, legal)
+| Carbon token | Font size | Weight | Line height | Use instead of |
+|--------------|-----------|--------|-------------|----------------|
+| `$code-01` | 12px | 400 | 16px | 12px IBM Plex Mono |
+| `$code-02` | 14px | 400 | 20px | 14px IBM Plex Mono |
+| `$label-01` | 12px | 400 | 16px | 12px labels/captions |
+| `$label-02` | 14px | 400 | 18px | 14px labels |
+| `$helper-text-01` | 12px | 400 | 16px | 12px helper text |
+| `$helper-text-02` | 14px | 400 | 18px | 14px helper text |
+| `$legal-01` | 12px | 400 | 16px | 12px legal |
+| `$legal-02` | 14px | 400 | 18px | 14px legal |
+
+### Typography usage
+
+```css
+/* ❌ FORBIDDEN */
+font-size: 14px;
+font-size: 1rem;
+line-height: 20px;
+font-weight: 600;
+
+/* ✅ REQUIRED — apply a full type token */
+font: var(--cds-body-01);
+/* or Carbon mixin / utility that sets size + weight + line-height from token */
+```
+
+Use Carbon’s type mixins or utilities (e.g. `@include type-style('body-01')`) so font-size, weight, and line-height all come from one token. Do not set font-size, line-height, or weight with raw px/rem values.
+
+---
+
+## Strict Rule: Use Spacing Tokens (No Hard-Coded px/rem)
+
+**Never use hard-coded spacing values** (e.g. `24px`, `1rem`, `16px`) for margins, padding, gaps, or layout. Use Carbon spacing tokens exclusively. If you see a value like `24px`, use `$spacing-06` (or the equivalent CSS variable).
+
+### Spacing scale (from Figma / Carbon)
+
+| Token        | Value | Use instead of |
+|-------------|-------|----------------|
+| `spacing-01` | 2px  | `2px` |
+| `spacing-02` | 4px  | `4px` |
+| `spacing-03` | 8px  | `8px` |
+| `spacing-04` | 12px | `12px` |
+| `spacing-05` | 16px | `16px` |
+| `spacing-06` | 24px | `24px` |
+| `spacing-07` | 32px | `32px` |
+| `spacing-08` | 40px | `40px` |
+| `spacing-09` | 48px | `48px` |
+| `spacing-10` | 64px | `64px` |
+| `spacing-11` | 80px | `80px` |
+| `spacing-12` | 96px | `96px` |
+| `spacing-13` | 160px | `160px` |
+
+### Spacing usage
+
+```css
+/* ❌ FORBIDDEN */
+padding: 24px;
+margin-bottom: 16px;
+gap: 8px;
+
+/* ✅ REQUIRED */
+padding: var(--cds-spacing-06);
+margin-bottom: var(--cds-spacing-05);
+gap: var(--cds-spacing-03);
+```
+
+In SCSS/Carbon: use `$spacing-06`, `$spacing-05`, `$spacing-03`, etc.
+
+---
+
+## Component Architecture
+
+### Reuse over Rebuild
+
+Before generating new UI code, **ALWAYS** check the `/components` folder. If a primitive exists (e.g. Button, Icon, Divider), import it. Do not inline SVG icons or create raw `<button>` elements with custom classes.
+
+```tsx
+// ❌ FORBIDDEN
+<button className="rounded bg-blue-600 px-4 py-2 text-white">Submit</button>
+<span dangerouslySetInnerHTML={{ __html: '<svg>...</svg>' }} />
+
+// ✅ REQUIRED
+import { Button } from '@/components/Button';
+import { Icon } from '@/components/Icon';
+<Button>Submit</Button>
+<Icon name="check" />
+```
+
+### Composition
+
+Build complex components (e.g. Accordions, Cards, Modals) by composing smaller atoms from `/components`. Do not build monolithic components with inline markup for primitives.
+
+### Tailwind Enforcement (Typography)
+
+When applying typography, use the **standard Tailwind class** that matches the Carbon token. Do not create custom class names like `.carbon-body-01` unless they are explicitly defined in your Tailwind config.
+
+| Carbon token | Tailwind classes (use these) |
+|--------------|------------------------------|
+| `$body-01` | `text-sm leading-5` |
+| `$body-02` | `text-base leading-6` |
+| `$body-compact-01` | `text-sm leading-[18px]` |
+| `$body-compact-02` | `text-base leading-[22px]` |
+| `$heading-compact-01` | `text-sm font-semibold leading-[18px]` |
+| `$heading-compact-02` | `text-base font-semibold leading-[22px]` |
+| `$heading-01` | `text-sm font-semibold leading-5` |
+| `$heading-02` | `text-base font-semibold leading-6` |
+| `$heading-03` | `text-xl leading-7` |
+| `$heading-04` | `text-[28px] leading-9` |
+| `$heading-05` | `text-3xl leading-10` |
+| `$label-01` / `$helper-text-01` / `$legal-01` / `$code-01` | `text-xs leading-4` |
+| `$label-02` / `$helper-text-02` / `$legal-02` | `text-sm leading-[18px]` |
+| `$code-02` | `text-sm leading-5 font-mono` |
+
+Use the Tailwind class that matches the token (e.g. for `$body-01` use `text-sm leading-5`). Only use custom classes like `.carbon-body-01` if they are explicitly defined in `tailwind.config.js` / `tailwind.config.ts`.
+
+---
+
+## Usage by Language
+
+### CSS / SCSS
+Use CSS custom properties or Carbon tokens via `@carbon/themes`:
+```css
+/* ❌ FORBIDDEN */
+color: #161616;
+color: rgb(22, 22, 22);
+background: #da1e28;
+
+/* ✅ REQUIRED */
+color: var(--cds-text-primary);
+color: var(--cds-text-error);
+background: var(--cds-support-error);
+border-color: var(--cds-border-subtle-01);
+```
+
+### JavaScript / TypeScript (Carbon React)
+Use Carbon theme tokens:
+```tsx
+// ❌ FORBIDDEN
+<Button style={{ color: '#0f62fe' }} />
+
+// ✅ REQUIRED
+// Use Carbon components and semantic tokens via theming
+```
+
+---
+
+## When Suggesting or Writing Code
+
+1. **Map intent to tokens**: Primary text → `text-primary`; error state → `support-error`; secondary text → `text-secondary`.
+2. **Replace hex/rgb with tokens**: If you see `#161616`, suggest `text-primary`. If you see `#da1e28`, suggest `support-error` or `text-error`.
+3. **Never introduce new hex codes** for UI colors. Only semantic tokens.
+4. **Replace hard-coded spacing with tokens**: If you see `24px`, `1.5rem`, or `16px` for spacing, use the matching token (e.g. `$spacing-06` for 24px, `$spacing-05` for 16px). Never introduce raw px/rem for margins, padding, or gap.
+5. **Typography**: Use only Carbon type tokens for text (e.g. `$body-01`, `$heading-02`). No raw px/rem for font-size, line-height, or weight.
+
+---
+
+**STRICT COMPLIANCE:** You are forbidden from using raw px or rem values for text or layout. Every element must resolve to a Carbon Token. If a design value is off-pixel, round to the nearest defined token.
+
+---
+
+## AI & Accessibility Standards (Machine Experience)
+- **Data Attributes**: Every interactive element (Buttons, Accordion Triggers, Inputs) MUST include a `data-testid` using the format `data-testid="carbon-[component-name]-[action]"`.
+- **ARIA Compliance**: Use strict WAI-ARIA patterns. For AI agents to "see" the UI state, ensure `aria-expanded`, `aria-controls`, and `aria-label` are dynamically updated.
+- **Labeling**: Every icon-only button must have an `aria-label`. Use IBM Carbon's naming convention for these labels (e.g., "Close", "Expand").
+- **Semantic HTML**: Prioritize `<button>`, `<nav>`, and `<section>` tags over `<div>` to help LLMs and screen readers understand the page structure.
+
+---
+
+## Tailwind Enforcement (v4 & Carbon Mapping)
+
+**Strict Rule: Use Carbon-Prefixed Utility Classes**
+Every color token defined in `globals.css` must be used with the `carbon-` prefix. This prevents the AI from falling back to standard Tailwind colors and ensures high-fidelity design system compliance.
+
+### Color Mapping (Tailwind v4)
+* **Backgrounds**: Use `bg-carbon-layer-01` (White), `bg-carbon-layer-02` (Gray 10), or `bg-carbon-layer-03`.
+* **Text**: Use `text-carbon-text-primary` (#161616), `text-carbon-text-secondary`, or `text-carbon-text-error`.
+* **Borders**: Use `border-carbon-border-subtle` or `border-carbon-interactive`.
+* **Status**: Use `text-carbon-support-error`, `bg-carbon-support-success`, etc.
+
+### Typography Mapping
+When applying typography, use the standard Tailwind utility classes that match the Carbon token's values. Do not use raw pixels.
+
+| Carbon Token | Tailwind Classes (Use these) | Matches Design Value |
+| :--- | :--- | :--- |
+| `$body-01` | `text-sm leading-5` | 14px / 20px line |
+| `$body-02` | `text-base leading-6` | 16px / 24px line |
+| `$body-compact-01` | `text-sm leading-[18px]` | 14px / 18px line |
+| `$heading-01` | `text-sm font-semibold leading-5` | 14px SemiBold |
+| `$heading-02` | `text-base font-semibold leading-6` | 16px SemiBold |
+| `$heading-03` | `text-xl leading-7` | 20px / 28px line |
+| `$label-01` | `text-xs leading-4` | 12px / 16px line |
+
+### Spacing & Motion
+* **Padding/Margin/Gap**: Use the standard spacing utilities: `p-4` (for `$spacing-05` / 16px), `gap-2` (for `$spacing-03` / 8px). Round up if Figma shows an off-grid value.
+* **Animations**: Use `animate-accordion-down` and `animate-accordion-up`. These trigger the specific IBM Carbon `cubic-bezier` curves defined in `globals.css`.
