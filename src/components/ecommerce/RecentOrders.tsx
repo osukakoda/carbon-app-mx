@@ -189,6 +189,7 @@ export default function RecentOrders() {
                 </TableCell>
                 <TableCell className="py-3 text-gray-500 text-theme-sm dark:text-gray-400">
                   <Badge
+                    variant="solid"
                     size="sm"
                     color={
                       product.status === "Delivered"
